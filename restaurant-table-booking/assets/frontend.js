@@ -104,17 +104,25 @@ jQuery(document).ready(function($) {
         // Get time format setting from server
         const timeFormat = (typeof rtb_settings !== 'undefined' && rtb_settings.time_format) ? rtb_settings.time_format : '24';
         
+        console.log('formatTime called with:', time);
+        console.log('rtb_settings object:', rtb_settings);
         console.log('Time format setting:', timeFormat);
+        console.log('Time format type:', typeof timeFormat);
         
         const [hours, minutes] = time.split(':').map(Number);
         
-        if (timeFormat === '12') {
+        // Ensure we're comparing strings, not numbers
+        if (timeFormat === '12' || timeFormat === 12) {
             const period = hours >= 12 ? 'PM' : 'AM';
             const displayHours = hours === 0 ? 12 : (hours > 12 ? hours - 12 : hours);
-            return `${displayHours}:${minutes.toString().padStart(2, '0')} ${period}`;
+            const formatted = `${displayHours}:${minutes.toString().padStart(2, '0')} ${period}`;
+            console.log('12-hour format result:', formatted);
+            return formatted;
         } else {
             // 24-hour format - return as is with proper formatting
-            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+            const formatted = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+            console.log('24-hour format result:', formatted);
+            return formatted;
         }
     }
     

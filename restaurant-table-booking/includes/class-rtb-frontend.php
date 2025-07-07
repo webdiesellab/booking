@@ -15,6 +15,9 @@ class RTB_Frontend {
         // Get time format setting
         $time_format = RTB_Database::get_setting('time_format', '24');
         
+        // Debug: Log time format setting
+        error_log('RTB Frontend: time_format setting = ' . $time_format);
+        
         // Add translations for JavaScript
         wp_localize_script('rtb-frontend-js', 'rtb_ajax', array(
             'ajax_url' => admin_url('admin-ajax.php'),
