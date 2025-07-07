@@ -31,7 +31,7 @@ jQuery(document).ready(function($) {
         // Location change handler - НЕ ПЕРЕЗАГРУЖАЕМ СЛОТЫ
         $locationInputs.on('change', function() {
             console.log('Location changed to:', getSelectedLocation());
-            // Не перезагружаем временные слоты при смене локации
+            // ВАЖНО: Никакой загрузки временных слотов здесь быть не должно!
         });
         
         // Form submission
@@ -81,7 +81,9 @@ jQuery(document).ready(function($) {
                     let options = '<option value="">' + rtb_translations.select_time + '</option>';
                     
                     response.data.forEach(function(time) {
+                        console.log('Processing time slot:', time);
                         const timeFormatted = formatTime(time);
+                        console.log('Final formatted time for option:', timeFormatted);
                         options += '<option value="' + time + '">' + timeFormatted + '</option>';
                     });
                     
@@ -101,9 +103,12 @@ jQuery(document).ready(function($) {
     }
     
     function formatTime(time) {
-        // Always use 24-hour format
+        // ПРИНУДИТЕЛЬНО 24-часовой формат - никаких исключений!
+        console.log('Formatting time:', time);
         const [hours, minutes] = time.split(':').map(Number);
-        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+        const formatted = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+        console.log('Formatted time result:', formatted);
+        return formatted;
     }
     
     function submitBooking() {
