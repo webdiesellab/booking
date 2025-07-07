@@ -110,7 +110,13 @@ jQuery(document).ready(function($) {
         
         if (timeFormat === '12') {
             const period = hours >= 12 ? 'PM' : 'AM';
-            const displayHours = hours % 12 || 12;
+            const displayHours = hours === 0 ? 12 : (hours > 12 ? hours - 12 : hours);
+            return `${displayHours}:${minutes.toString().padStart(2, '0')} ${period}`;
+        } else {
+            // 24-hour format - return as is with proper formatting
+            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+        }
+    }urs % 12 || 12;
             return displayHours + ':' + minutes.toString().padStart(2, '0') + ' ' + period;
         } else {
             // 24-hour format
