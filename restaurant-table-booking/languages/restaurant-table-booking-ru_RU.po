@@ -1,0 +1,372 @@
+# Russian translation for Restaurant Table Booking
+# Copyright (C) 2024
+# This file is distributed under the same license as the Restaurant Table Booking package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Restaurant Table Booking 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 12:00+0000\n"
+"PO-Revision-Date: 2024-01-01 12:00+0000\n"
+"Last-Translator: Web Diesel Laboratory\n"
+"Language-Team: Russian\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: includes/class-rtb-admin.php
+msgid "Restaurant Bookings"
+msgstr "Бронирование столиков"
+
+#: includes/class-rtb-admin.php
+msgid "Settings"
+msgstr "Настройки"
+
+#: includes/class-rtb-admin.php
+msgid "Unauthorized"
+msgstr "Нет доступа"
+
+#: includes/class-rtb-admin.php
+msgid "Settings saved successfully!"
+msgstr "Настройки успешно сохранены!"
+
+#: includes/class-rtb-admin.php
+msgid "Location saved successfully!"
+msgstr "Локация успешно сохранена!"
+
+#: includes/class-rtb-admin.php
+msgid "Error saving location."
+msgstr "Ошибка сохранения локации."
+
+#: includes/class-rtb-admin.php
+msgid "Location deleted successfully!"
+msgstr "Локация успешно удалена!"
+
+#: includes/class-rtb-admin.php
+msgid "Error deleting location."
+msgstr "Ошибка удаления локации."
+
+#: includes/class-rtb-ajax.php
+msgid "%s is required."
+msgstr "Поле %s обязательно для заполнения."
+
+#: includes/class-rtb-ajax.php
+msgid "Please enter a valid email address."
+msgstr "Пожалуйста, введите корректный email адрес."
+
+#: includes/class-rtb-ajax.php
+msgid "Booking date cannot be in the past."
+msgstr "Дата бронирования не может быть в прошлом."
+
+#: includes/class-rtb-ajax.php
+msgid "Selected time is no longer available."
+msgstr "Выбранное время больше недоступно."
+
+#: includes/class-rtb-ajax.php
+msgid "Booking confirmed! You will receive a confirmation email shortly."
+msgstr "Бронирование подтверждено! Вы получите письмо с подтверждением в ближайшее время."
+
+#: includes/class-rtb-ajax.php
+msgid "Error creating booking. Please try again."
+msgstr "Ошибка создания бронирования. Пожалуйста, попробуйте снова."
+
+#: includes/class-rtb-email.php
+msgid "Booking Confirmation - Your Table is Reserved!"
+msgstr "Подтверждение бронирования - Ваш столик забронирован!"
+
+#: includes/class-rtb-email.php
+msgid "New Table Booking Received"
+msgstr "Получено новое бронирование столика"
+
+#: includes/class-rtb-frontend.php
+msgid "Выберите время"
+msgstr "Выберите время"
+
+#: includes/class-rtb-frontend.php
+msgid "Загрузка..."
+msgstr "Загрузка..."
+
+#: includes/class-rtb-frontend.php
+msgid "Резервация недоступна"
+msgstr "Резервация недоступна"
+
+#: includes/class-rtb-frontend.php
+msgid "Ошибка загрузки времени"
+msgstr "Ошибка загрузки времени"
+
+#: includes/class-rtb-frontend.php
+msgid "Произошла ошибка. Пожалуйста, попробуйте снова."
+msgstr "Произошла ошибка. Пожалуйста, попробуйте снова."
+
+#: includes/class-rtb-frontend.php
+msgid "Ошибка сети. Проверьте подключение и попробуйте снова."
+msgstr "Ошибка сети. Проверьте подключение и попробуйте снова."
+
+#: includes/class-rtb-frontend.php
+msgid "гостей"
+msgstr "гостей"
+
+#: includes/class-rtb-frontend.php
+msgid "гость"
+msgstr "гость"
+
+#: templates/admin-bookings.php
+msgid "Today's Bookings"
+msgstr "Сегодняшние бронирования"
+
+#: templates/admin-bookings.php
+msgid "This Week"
+msgstr "На этой неделе"
+
+#: templates/admin-bookings.php
+msgid "Total Bookings"
+msgstr "Всего бронирований"
+
+#: templates/admin-bookings.php
+msgid "Customer"
+msgstr "Клиент"
+
+#: templates/admin-bookings.php
+msgid "Contact"
+msgstr "Контакты"
+
+#: templates/admin-bookings.php
+msgid "Date & Time"
+msgstr "Дата и время"
+
+#: templates/admin-bookings.php
+msgid "Guests"
+msgstr "Гости"
+
+#: templates/admin-bookings.php
+msgid "Location"
+msgstr "Локация"
+
+#: templates/admin-bookings.php
+msgid "Status"
+msgstr "Статус"
+
+#: templates/admin-bookings.php
+msgid "Created"
+msgstr "Создано"
+
+#: templates/admin-bookings.php
+msgid "No bookings found."
+msgstr "Бронирования не найдены."
+
+#: templates/admin-settings.php
+msgid "Restaurant Booking Settings"
+msgstr "Настройки бронирования ресторана"
+
+#: templates/admin-settings.php
+msgid "Business Hours"
+msgstr "Часы работы"
+
+#: templates/admin-settings.php
+msgid "Locations"
+msgstr "Локации"
+
+#: templates/admin-settings.php
+msgid "Notifications"
+msgstr "Уведомления"
+
+#: templates/admin-settings.php
+msgid "Operating Hours"
+msgstr "Часы работы"
+
+#: templates/admin-settings.php
+msgid "Monday"
+msgstr "Понедельник"
+
+#: templates/admin-settings.php
+msgid "Tuesday"
+msgstr "Вторник"
+
+#: templates/admin-settings.php
+msgid "Wednesday"
+msgstr "Среда"
+
+#: templates/admin-settings.php
+msgid "Thursday"
+msgstr "Четверг"
+
+#: templates/admin-settings.php
+msgid "Friday"
+msgstr "Пятница"
+
+#: templates/admin-settings.php
+msgid "Saturday"
+msgstr "Суббота"
+
+#: templates/admin-settings.php
+msgid "Sunday"
+msgstr "Воскресенье"
+
+#: templates/admin-settings.php
+msgid "Open"
+msgstr "Открыто"
+
+#: templates/admin-settings.php
+msgid "From:"
+msgstr "С:"
+
+#: templates/admin-settings.php
+msgid "To:"
+msgstr "До:"
+
+#: templates/admin-settings.php
+msgid "Time Interval"
+msgstr "Интервал времени"
+
+#: templates/admin-settings.php
+msgid "15 minutes"
+msgstr "15 минут"
+
+#: templates/admin-settings.php
+msgid "30 minutes"
+msgstr "30 минут"
+
+#: templates/admin-settings.php
+msgid "1 hour"
+msgstr "1 час"
+
+#: templates/admin-settings.php
+msgid "Time Format"
+msgstr "Формат времени"
+
+#: templates/admin-settings.php
+msgid "24-hour format (14:30)"
+msgstr "24-часовой формат (14:30)"
+
+#: templates/admin-settings.php
+msgid "12-hour format (2:30 PM)"
+msgstr "12-часовой формат (2:30 PM)"
+
+#: templates/admin-settings.php
+msgid "Dining Locations"
+msgstr "Залы ресторана"
+
+#: templates/admin-settings.php
+msgid "Location Name"
+msgstr "Название локации"
+
+#: templates/admin-settings.php
+msgid "Image URL"
+msgstr "URL изображения"
+
+#: templates/admin-settings.php
+msgid "Enabled"
+msgstr "Включено"
+
+#: templates/admin-settings.php
+msgid "Save"
+msgstr "Сохранить"
+
+#: templates/admin-settings.php
+msgid "Delete"
+msgstr "Удалить"
+
+#: templates/admin-settings.php
+msgid "Add New Location"
+msgstr "Добавить новую локацию"
+
+#: templates/admin-settings.php
+msgid "Notification Settings"
+msgstr "Настройки уведомлений"
+
+#: templates/admin-settings.php
+msgid "Notification Email Addresses"
+msgstr "Email адреса для уведомлений"
+
+#: templates/admin-settings.php
+msgid "Remove"
+msgstr "Удалить"
+
+#: templates/admin-settings.php
+msgid "Add Email"
+msgstr "Добавить Email"
+
+#: templates/admin-settings.php
+msgid "Send confirmation emails to customers"
+msgstr "Отправлять письма с подтверждением клиентам"
+
+#: templates/admin-settings.php
+msgid "Save Settings"
+msgstr "Сохранить настройки"
+
+#: templates/booking-form.php
+msgid "Reserve Your Table"
+msgstr "Забронировать столик"
+
+#: templates/booking-form.php
+msgid "Experience culinary excellence in our beautiful dining spaces"
+msgstr "Насладитесь кулинарным совершенством в наших прекрасных залах"
+
+#: templates/booking-form.php
+msgid "Full Name"
+msgstr "Полное имя"
+
+#: templates/booking-form.php
+msgid "Email Address"
+msgstr "Email адрес"
+
+#: templates/booking-form.php
+msgid "Phone Number"
+msgstr "Номер телефона"
+
+#: templates/booking-form.php
+msgid "Number of Guests"
+msgstr "Количество гостей"
+
+#: templates/booking-form.php
+msgid "Guest"
+msgstr "Гость"
+
+#: templates/booking-form.php
+msgid "Date"
+msgstr "Дата"
+
+#: templates/booking-form.php
+msgid "Time"
+msgstr "Время"
+
+#: templates/booking-form.php
+msgid "Choose Your Dining Location"
+msgstr "Выберите зал ресторана"
+
+#: templates/booking-form.php
+msgid "Special Requests (Optional)"
+msgstr "Особые пожелания (необязательно)"
+
+#: templates/booking-form.php
+msgid "Any dietary restrictions, special occasions, or other requests..."
+msgstr "Диетические ограничения, особые случаи или другие пожелания..."
+
+#: templates/booking-form.php
+msgid "Book Now"
+msgstr "Забронировать"
+
+#: templates/booking-form.php
+msgid "Processing..."
+msgstr "Обработка..."
+
+#: templates/booking-form.php
+msgid "Reservation Confirmed!"
+msgstr "Бронирование подтверждено!"
+
+#: templates/booking-form.php
+msgid "We've sent a confirmation email to your address"
+msgstr "Мы отправили письмо с подтверждением на ваш адрес"
+
+#: templates/booking-form.php
+msgid "Booking Details"
+msgstr "Детали бронирования"
+
+#: templates/booking-form.php
+msgid "Make Another Reservation"
+msgstr "Сделать еще одно бронирование"
+
+#: templates/booking-form.php
+msgid "Print Confirmation"
+msgstr "Распечатать подтверждение"

@@ -1,0 +1,432 @@
+/* Restaurant Table Booking - Frontend Styles */
+
+.rtb-booking-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.rtb-form-wrapper {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.rtb-form-header {
+    background: linear-gradient(135deg, #f59e0b, #ea580c);
+    color: white;
+    padding: 40px 30px;
+    text-align: center;
+}
+
+.rtb-form-header h2 {
+    margin: 0 0 10px 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.rtb-form-header p {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 1.1rem;
+}
+
+.rtb-form {
+    padding: 40px 30px;
+}
+
+.rtb-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.rtb-form-group {
+    margin-bottom: 25px;
+}
+
+.rtb-form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.95rem;
+}
+
+.rtb-form-group input,
+.rtb-form-group select,
+.rtb-form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.rtb-form-group input:focus,
+.rtb-form-group select:focus,
+.rtb-form-group textarea:focus {
+    outline: none;
+    border-color: #f59e0b;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+}
+
+.rtb-locations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.rtb-location-option {
+    position: relative;
+}
+
+.rtb-location-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.rtb-location-card {
+    display: block;
+    position: relative;
+    height: 140px;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+}
+
+.rtb-location-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.rtb-location-option input[type="radio"]:checked + .rtb-location-card {
+    border-color: #f59e0b;
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+}
+
+.rtb-location-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.rtb-location-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    color: white;
+    padding: 20px 16px 16px;
+}
+
+.rtb-location-overlay h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.rtb-location-check {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 24px;
+    height: 24px;
+    background: #f59e0b;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+}
+
+.rtb-location-option input[type="radio"]:checked + .rtb-location-card .rtb-location-check {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.rtb-submit-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #f59e0b, #ea580c);
+    color: white;
+    border: none;
+    padding: 16px 24px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.rtb-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+}
+
+.rtb-submit-btn:active {
+    transform: translateY(0);
+}
+
+.rtb-submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.rtb-btn-loading {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.rtb-btn-loading::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: rtb-spin 1s linear infinite;
+}
+
+@keyframes rtb-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Confirmation Modal */
+.rtb-confirmation-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.rtb-confirmation-content {
+    background: white;
+    border-radius: 16px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: rtb-modal-appear 0.3s ease;
+}
+
+@keyframes rtb-modal-appear {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.rtb-confirmation-header {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: 40px 30px;
+    text-align: center;
+}
+
+.rtb-success-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0 auto 20px;
+}
+
+.rtb-confirmation-header h2 {
+    margin: 0 0 10px 0;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.rtb-confirmation-header p {
+    margin: 0;
+    opacity: 0.9;
+}
+
+.rtb-confirmation-details {
+    padding: 30px;
+}
+
+.rtb-confirmation-details h3 {
+    margin: 0 0 20px 0;
+    color: #374151;
+    font-size: 1.3rem;
+}
+
+.rtb-confirmation-info {
+    background: #f9fafb;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.rtb-detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.rtb-detail-row:last-child {
+    border-bottom: none;
+}
+
+.rtb-detail-label {
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.rtb-detail-value {
+    color: #374151;
+    font-weight: 500;
+}
+
+.rtb-confirmation-actions {
+    padding: 0 30px 30px;
+    display: flex;
+    gap: 12px;
+}
+
+.rtb-btn {
+    flex: 1;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 1rem;
+}
+
+.rtb-btn-primary {
+    background: linear-gradient(135deg, #f59e0b, #ea580c);
+    color: white;
+}
+
+.rtb-btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+}
+
+.rtb-btn-secondary {
+    background: white;
+    color: #374151;
+    border: 2px solid #e5e7eb;
+}
+
+.rtb-btn-secondary:hover {
+    background: #f9fafb;
+    border-color: #d1d5db;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .rtb-booking-container {
+        padding: 10px;
+    }
+    
+    .rtb-form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    
+    .rtb-form-header {
+        padding: 30px 20px;
+    }
+    
+    .rtb-form-header h2 {
+        font-size: 2rem;
+    }
+    
+    .rtb-form {
+        padding: 30px 20px;
+    }
+    
+    .rtb-locations-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .rtb-confirmation-actions {
+        flex-direction: column;
+    }
+    
+    .rtb-confirmation-modal {
+        padding: 10px;
+    }
+    
+    .rtb-confirmation-header {
+        padding: 30px 20px;
+    }
+    
+    .rtb-confirmation-details {
+        padding: 20px;
+    }
+    
+    .rtb-confirmation-actions {
+        padding: 0 20px 20px;
+    }
+}
+
+/* Error States */
+.rtb-form-group.rtb-error input,
+.rtb-form-group.rtb-error select,
+.rtb-form-group.rtb-error textarea {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.rtb-error-message {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 4px;
+    display: block;
+}
+
+/* Loading States */
+.rtb-form.rtb-loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.rtb-form.rtb-loading .rtb-submit-btn {
+    background: #9ca3af;
+}

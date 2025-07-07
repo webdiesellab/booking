@@ -1,0 +1,331 @@
+# Restaurant Table Booking POT File
+# Copyright (C) 2024
+# This file is distributed under the same license as the Restaurant Table Booking package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Restaurant Table Booking 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 12:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: includes/class-rtb-admin.php
+msgid "Restaurant Bookings"
+msgstr ""
+
+#: includes/class-rtb-admin.php
+msgid "Settings"
+msgstr ""
+
+#: includes/class-rtb-admin.php
+msgid "Unauthorized"
+msgstr ""
+
+#: includes/class-rtb-admin.php
+msgid "Settings saved successfully!"
+msgstr ""
+
+#: includes/class-rtb-admin.php
+msgid "Location saved successfully!"
+msgstr ""
+
+#: includes/class-rtb-admin.php
+msgid "Error saving location."
+msgstr ""
+
+#: includes/class-rtb-admin.php
+msgid "Location deleted successfully!"
+msgstr ""
+
+#: includes/class-rtb-admin.php
+msgid "Error deleting location."
+msgstr ""
+
+#: includes/class-rtb-ajax.php
+msgid "%s is required."
+msgstr ""
+
+#: includes/class-rtb-ajax.php
+msgid "Please enter a valid email address."
+msgstr ""
+
+#: includes/class-rtb-ajax.php
+msgid "Booking date cannot be in the past."
+msgstr ""
+
+#: includes/class-rtb-ajax.php
+msgid "Selected time is no longer available."
+msgstr ""
+
+#: includes/class-rtb-ajax.php
+msgid "Booking confirmed! You will receive a confirmation email shortly."
+msgstr ""
+
+#: includes/class-rtb-ajax.php
+msgid "Error creating booking. Please try again."
+msgstr ""
+
+#: includes/class-rtb-email.php
+msgid "Booking Confirmation - Your Table is Reserved!"
+msgstr ""
+
+#: includes/class-rtb-email.php
+msgid "New Table Booking Received"
+msgstr ""
+
+#: templates/admin-bookings.php
+msgid "Today's Bookings"
+msgstr ""
+
+#: templates/admin-bookings.php
+msgid "This Week"
+msgstr ""
+
+#: templates/admin-bookings.php
+msgid "Total Bookings"
+msgstr ""
+
+#: templates/admin-bookings.php
+msgid "Customer"
+msgstr ""
+
+#: templates/admin-bookings.php
+msgid "Contact"
+msgstr ""
+
+#: templates/admin-bookings.php
+msgid "Date & Time"
+msgstr ""
+
+#: templates/admin-bookings.php
+msgid "Guests"
+msgstr ""
+
+#: templates/admin-bookings.php
+msgid "Location"
+msgstr ""
+
+#: templates/admin-bookings.php
+msgid "Status"
+msgstr ""
+
+#: templates/admin-bookings.php
+msgid "Created"
+msgstr ""
+
+#: templates/admin-bookings.php
+msgid "No bookings found."
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Restaurant Booking Settings"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Business Hours"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Locations"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Notifications"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Operating Hours"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Monday"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Tuesday"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Wednesday"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Thursday"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Friday"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Saturday"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Sunday"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Open"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "From:"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "To:"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Time Interval"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "15 minutes"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "30 minutes"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "1 hour"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Dining Locations"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Location Name"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Image URL"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Enabled"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Save"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Delete"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Add New Location"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Notification Settings"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Notification Email Addresses"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Remove"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Add Email"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Send confirmation emails to customers"
+msgstr ""
+
+#: templates/admin-settings.php
+msgid "Save Settings"
+msgstr ""
+
+#: templates/booking-form.php
+msgid "Reserve Your Table"
+msgstr ""
+
+#: templates/booking-form.php
+msgid "Experience culinary excellence in our beautiful dining spaces"
+msgstr ""
+
+#: templates/booking-form.php
+msgid "Full Name"
+msgstr ""
+
+#: templates/booking-form.php
+msgid "Email Address"
+msgstr ""
+
+#: templates/booking-form.php
+msgid "Phone Number"
+msgstr ""
+
+#: templates/booking-form.php
+msgid "Number of Guests"
+msgstr ""
+
+#: templates/booking-form.php
+msgid "Guest"
+msgstr ""
+
+#: templates/booking-form.php
+msgid "Date"
+msgstr ""
+
+#: templates/booking-form.php
+msgid "Time"
+msgstr ""
+
+#: templates/booking-form.php
+msgid "Select a time"
+msgstr ""
+
+#: templates/booking-form.php
+msgid "Choose Your Dining Location"
+msgstr ""
+
+#: templates/booking-form.php
+msgid "Special Requests (Optional)"
+msgstr ""
+
+#: templates/booking-form.php
+msgid "Any dietary restrictions, special occasions, or other requests..."
+msgstr ""
+
+#: templates/booking-form.php
+msgid "Book Now"
+msgstr ""
+
+#: templates/booking-form.php
+msgid "Processing..."
+msgstr ""
+
+#: templates/booking-form.php
+msgid "Reservation Confirmed!"
+msgstr ""
+
+#: templates/booking-form.php
+msgid "We've sent a confirmation email to your address"
+msgstr ""
+
+#: templates/booking-form.php
+msgid "Booking Details"
+msgstr ""
+
+#: templates/booking-form.php
+msgid "Make Another Reservation"
+msgstr ""
+
+#: templates/booking-form.php
+msgid "Print Confirmation"
+msgstr ""
