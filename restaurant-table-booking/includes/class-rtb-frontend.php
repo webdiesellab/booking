@@ -12,12 +12,6 @@ class RTB_Frontend {
         wp_enqueue_style('rtb-frontend-css', RTB_PLUGIN_URL . 'assets/frontend.css', array(), RTB_VERSION);
         wp_enqueue_script('rtb-frontend-js', RTB_PLUGIN_URL . 'assets/frontend.js', array('jquery'), RTB_VERSION, true);
         
-        // Get time format setting
-        $time_format = RTB_Database::get_setting('time_format', '24');
-        
-        // Debug: Log time format setting
-        error_log('RTB Frontend: time_format setting = ' . $time_format);
-        
         // Add translations for JavaScript
         wp_localize_script('rtb-frontend-js', 'rtb_ajax', array(
             'ajax_url' => admin_url('admin-ajax.php'),
@@ -40,10 +34,7 @@ class RTB_Frontend {
             'guest' => __('гость', 'restaurant-table-booking')
         ));
         
-        // Add time format setting
-        wp_localize_script('rtb-frontend-js', 'rtb_settings', array(
-            'time_format' => $time_format
-        ));
+        
     }
     
     public function booking_form_shortcode($atts) {

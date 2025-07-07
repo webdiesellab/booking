@@ -58,13 +58,7 @@
                     </select>
                 </div>
                 
-                <div class="rtb-time-format">
-                    <h3><?php _e('Time Format', 'restaurant-table-booking'); ?></h3>
-                    <select name="time_format">
-                        <option value="24" <?php selected($time_format, '24'); ?>><?php _e('24-hour format (14:30)', 'restaurant-table-booking'); ?></option>
-                        <option value="12" <?php selected($time_format, '12'); ?>><?php _e('12-hour format (2:30 PM)', 'restaurant-table-booking'); ?></option>
-                    </select>
-                </div>
+                
             </div>
             
             <!-- Locations Tab -->
