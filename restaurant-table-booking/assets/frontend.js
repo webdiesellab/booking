@@ -116,12 +116,6 @@ jQuery(document).ready(function($) {
             // 24-hour format - return as is with proper formatting
             return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
         }
-    }urs % 12 || 12;
-            return displayHours + ':' + minutes.toString().padStart(2, '0') + ' ' + period;
-        } else {
-            // 24-hour format
-            return hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0');
-        }
     }
     
     function submitBooking() {
