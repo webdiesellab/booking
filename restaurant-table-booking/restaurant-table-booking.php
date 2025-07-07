@@ -3,7 +3,7 @@
  * Plugin Name: Restaurant Table Booking
  * Plugin URI: https://example.com/restaurant-table-booking
  * Description: A comprehensive restaurant table booking system with admin panel, email notifications, and responsive frontend. Supports WordPress Multisite.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Web Diesel Laboratory
  * License: GPL v2 or later
  * Text Domain: restaurant-table-booking
@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
 // Define plugin constants
 define('RTB_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('RTB_PLUGIN_PATH', plugin_dir_path(__FILE__));
-define('RTB_VERSION', '1.0.0');
+define('RTB_VERSION', '1.0.1');
 
 // Include required files
 require_once RTB_PLUGIN_PATH . 'includes/class-rtb-database.php';
