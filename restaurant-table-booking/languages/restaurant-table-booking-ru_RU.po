@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: Restaurant Table Booking 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-01 12:00+0000\n"
-"PO-Revision-Date: 2024-01-01 12:00+0000\n"
+"PO-Revision-Date: 2025-07-18 14:40+0300\n"
 "Last-Translator: Web Diesel Laboratory\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
@@ -14,6 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 3.1\n"
 
 #: includes/class-rtb-admin.php
 msgid "Restaurant Bookings"
@@ -73,11 +74,11 @@ msgstr "Ошибка создания бронирования. Пожалуйс
 
 #: includes/class-rtb-email.php
 msgid "Booking Confirmation - Your Table is Reserved!"
-msgstr "Подтверждение бронирования - Ваш столик забронирован!"
+msgstr "Booking Confirmation - Your Table is Reserved!"
 
 #: includes/class-rtb-email.php
 msgid "New Table Booking Received"
-msgstr "Получено новое бронирование столика"
+msgstr "New Table Booking Received"
 
 #: includes/class-rtb-frontend.php
 msgid "Выберите время"
@@ -134,10 +135,6 @@ msgstr "Контакты"
 #: templates/admin-bookings.php
 msgid "Date & Time"
 msgstr "Дата и время"
-
-#: templates/admin-bookings.php
-msgid "Guests"
-msgstr "Гости"
 
 #: templates/admin-bookings.php
 msgid "Location"
@@ -305,7 +302,7 @@ msgstr "Насладитесь кулинарным совершенством �
 
 #: templates/booking-form.php
 msgid "Full Name"
-msgstr "Полное имя"
+msgstr "Имя Фамилия"
 
 #: templates/booking-form.php
 msgid "Email Address"
@@ -322,6 +319,10 @@ msgstr "Количество гостей"
 #: templates/booking-form.php
 msgid "Guest"
 msgstr "Гость"
+
+#: templates/booking-form.php templates/admin-bookings.php
+msgid "Guests"
+msgstr "Гостей"
 
 #: templates/booking-form.php
 msgid "Date"
