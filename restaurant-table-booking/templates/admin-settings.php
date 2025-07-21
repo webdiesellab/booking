@@ -89,12 +89,6 @@
                                     <input type="checkbox" class="rtb-location-enabled" <?php checked($location['enabled'], 1); ?>>
                                     <?php _e('Enabled', 'restaurant-table-booking'); ?>
                                 </label>
-                                
-                                <!-- Hidden inputs for form submission -->
-                                <input type="hidden" name="locations[<?php echo esc_attr($location['id']); ?>][name]" value="<?php echo esc_attr($location['name']); ?>">
-                                <input type="hidden" name="locations[<?php echo esc_attr($location['id']); ?>][icon_svg]" value="<?php echo esc_attr($location['icon_svg'] ?? ''); ?>">
-                                <input type="hidden" name="locations[<?php echo esc_attr($location['id']); ?>][image_url]" value="<?php echo esc_url($location['image_url']); ?>">
-                                <input type="hidden" name="locations[<?php echo esc_attr($location['id']); ?>][enabled]" value="<?php echo $location['enabled'] ? '1' : '0'; ?>">
                             </div>
                             
                             <div class="rtb-location-actions">
