@@ -71,7 +71,18 @@
                             
                             <div class="rtb-location-details">
                                 <input type="text" class="rtb-location-name" value="<?php echo esc_attr($location['name']); ?>" placeholder="<?php _e('Location Name', 'restaurant-table-booking'); ?>">
-                                <input type="text" class="rtb-location-icon-svg" value="<?php echo esc_attr($location['icon_svg'] ?? ''); ?>" placeholder="SVG иконка (например: &lt;svg&gt;...&lt;/svg&gt;)">
+                                <div class="rtb-svg-selector">
+                                    <input type="hidden" class="rtb-location-icon-svg" value="<?php echo esc_attr($location['icon_svg'] ?? ''); ?>">
+                                    <div class="rtb-svg-preview">
+                                        <?php if (!empty($location['icon_svg'])): ?>
+                                            <img src="<?php echo esc_url($location['icon_svg']); ?>" alt="SVG Icon" style="width: 24px; height: 24px;">
+                                        <?php else: ?>
+                                            <span class="rtb-no-icon">Нет иконки</span>
+                                        <?php endif; ?>
+                                    </div>
+                                    <button type="button" class="button rtb-select-svg">Выбрать SVG иконку</button>
+                                    <button type="button" class="button rtb-remove-svg" style="<?php echo empty($location['icon_svg']) ? 'display:none;' : ''; ?>">Удалить</button>
+                                </div>
                                 <input type="url" class="rtb-location-image-url" value="<?php echo esc_url($location['image_url']); ?>" placeholder="<?php _e('Image URL', 'restaurant-table-booking'); ?>">
                                 
                                 <label class="rtb-checkbox">

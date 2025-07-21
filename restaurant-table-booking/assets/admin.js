@@ -7,6 +7,7 @@ jQuery(document).ready(function($) {
     initSettingsForm();
     initLocationManagement();
     initEmailManagement();
+    initMediaSelector();
 
     function initAdminTabs() {
         $('.nav-tab').on('click', function(e) {
@@ -31,7 +32,12 @@ jQuery(document).ready(function($) {
         });
 
         // Update hidden inputs when location fields change
-        $(document).on('input change', '.rtb-location-name, .rtb-location-icon-svg, .rtb-location-image-url, .rtb-location-enabled', function() {
+        $(document).on('input change', '.rtb-location-name, .rtb-location-image-url, .rtb-location-enabled', function() {
+            updateLocationHiddenInputs();
+        });
+        
+        // Update hidden inputs when SVG changes
+        $(document).on('change', '.rtb-location-icon-svg', function() {
             updateLocationHiddenInputs();
         });
 
@@ -239,7 +245,14 @@ jQuery(document).ready(function($) {
                     </div>
                     <div class="rtb-location-details">
                         <input type="text" class="rtb-location-name" value="" placeholder="Location Name">
-                        <input type="text" class="rtb-location-icon-svg" value="" placeholder="SVG иконка (например: &lt;svg&gt;...&lt;/svg&gt;)">
+                        <div class="rtb-svg-selector">
+                            <input type="hidden" class="rtb-location-icon-svg" value="">
+                            <div class="rtb-svg-preview">
+                                <span class="rtb-no-icon">Нет иконки</span>
+                            </div>
+                            <button type="button" class="button rtb-select-svg">Выбрать SVG иконку</button>
+                            <button type="button" class="button rtb-remove-svg" style="display:none;">Удалить</button>
+                        </div>
                         <input type="url" class="rtb-location-image-url" value="" placeholder="Image URL">
                         <label class="rtb-checkbox">
                             <input type="checkbox" class="rtb-location-enabled" checked>
@@ -277,6 +290,67 @@ jQuery(document).ready(function($) {
         // Remove email
         $(document).on('click', '.rtb-remove-email', function() {
             $(this).closest('.rtb-email-input').remove();
+        });
+    }
+
+    function initMediaSelector() {
+        // Initialize WordPress Media Library
+        $(document).on('click', '.rtb-select-svg', function(e) {
+            e.preventDefault();
+            
+            const $button = $(this);
+            const $container = $button.closest('.rtb-svg-selector');
+            const $hiddenInput = $container.find('.rtb-location-icon-svg');
+            const $preview = $container.find('.rtb-svg-preview');
+            const $removeBtn = $container.find('.rtb-remove-svg');
+            
+            // Create media frame
+            const mediaFrame = wp.media({
+                title: 'Выберите SVG иконку',
+                button: {
+                    text: 'Выбрать'
+                },
+                multiple: false,
+                library: {
+                    type: 'image/svg+xml'
+                }
+            });
+            
+            // When an image is selected
+            mediaFrame.on('select', function() {
+                const attachment = mediaFrame.state().get('selection').first().toJSON();
+                
+                // Update hidden input
+                $hiddenInput.val(attachment.url).trigger('change');
+                
+                // Update preview
+                $preview.html('<img src="' + attachment.url + '" alt="SVG Icon" style="width: 24px; height: 24px;">');
+                
+                // Show remove button
+                $removeBtn.show();
+            });
+            
+            // Open media frame
+            mediaFrame.open();
+        });
+        
+        // Remove SVG icon
+        $(document).on('click', '.rtb-remove-svg', function(e) {
+            e.preventDefault();
+            
+            const $button = $(this);
+            const $container = $button.closest('.rtb-svg-selector');
+            const $hiddenInput = $container.find('.rtb-location-icon-svg');
+            const $preview = $container.find('.rtb-svg-preview');
+            
+            // Clear hidden input
+            $hiddenInput.val('').trigger('change');
+            
+            // Update preview
+            $preview.html('<span class="rtb-no-icon">Нет иконки</span>');
+            
+            // Hide remove button
+            $button.hide();
         });
     }
 

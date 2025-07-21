@@ -147,11 +147,11 @@
     opacity: 0.9;
 }
 
-.rtb-location-icon svg {
+.rtb-location-icon img {
     width: 16px;
     height: 16px;
-    fill: currentColor;
-    stroke: currentColor;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
 }
 
 .rtb-location-check {

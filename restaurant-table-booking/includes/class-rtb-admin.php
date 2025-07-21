@@ -55,6 +55,10 @@ class RTB_Admin {
         if (strpos($hook, 'restaurant-bookings') !== false) {
             // Добавляем текущее время к версии для принудительного обновления кеша
             $version = RTB_VERSION . '.' . time();
+            
+            // Enqueue WordPress media scripts
+            wp_enqueue_media();
+            
             wp_enqueue_style('rtb-admin-css', RTB_PLUGIN_URL . 'assets/admin.css', array(), $version);
             wp_enqueue_script('rtb-admin-js', RTB_PLUGIN_URL . 'assets/admin.js', array('jquery'), $version, true);
             wp_localize_script('rtb-admin-js', 'rtb_ajax', array(
