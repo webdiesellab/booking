@@ -40,15 +40,7 @@ jQuery(document).ready(function($) {
             submitBooking();
         });
         
-        // Business hours checkbox handlers for admin
-        $('.rtb-day-hours input[type="checkbox"]').on('change', function() {
-            const $timeInputs = $(this).closest('.rtb-day-hours').find('.rtb-time-inputs');
-            if ($(this).is(':checked')) {
-                $timeInputs.show();
-            } else {
-                $timeInputs.hide();
-            }
-        });
+        // Business hours - поля времени всегда видимы
     }
     
     function getSelectedLocation() {

@@ -1,95 +1,86 @@
+
 jQuery(document).ready(function($) {
     'use strict';
-    
+
     // Initialize admin functionality
     initAdminTabs();
     initSettingsForm();
     initLocationManagement();
     initEmailManagement();
-    
+
     function initAdminTabs() {
         $('.nav-tab').on('click', function(e) {
             e.preventDefault();
-            
+
             const target = $(this).attr('href');
-            
+
             // Update active tab
             $('.nav-tab').removeClass('nav-tab-active');
             $(this).addClass('nav-tab-active');
-            
+
             // Show corresponding content
             $('.rtb-tab-content').removeClass('rtb-tab-active');
             $(target).addClass('rtb-tab-active');
         });
     }
-    
+
     function initSettingsForm() {
         $('#rtb-settings-form').on('submit', function(e) {
             e.preventDefault();
             saveSettings();
         });
-        
-        // Business hours checkbox handlers
-        $('input[name*="[isOpen]"]').on('change', function() {
-            const $timeInputs = $(this).closest('.rtb-day-hours').find('.rtb-time-inputs');
-            if ($(this).is(':checked')) {
-                $timeInputs.show();
-            } else {
-                $timeInputs.hide();
-            }
-        });
-        
-        // Initialize checkbox states on page load - ПРАВИЛЬНАЯ ИНИЦИАЛИЗАЦИЯ
-        $('input[name*="[isOpen]"]').each(function() {
-            const $checkbox = $(this);
-            const $timeInputs = $checkbox.closest('.rtb-day-hours').find('.rtb-time-inputs');
-            
-            // Показываем/скрываем поля времени в зависимости от состояния чекбокса
-            if ($checkbox.is(':checked')) {
-                $timeInputs.show();
-            } else {
-                $timeInputs.hide();
-            }
+
+        // Принудительно показываем все поля времени
+        $(document).ready(function() {
+            $('.rtb-time-inputs').css({
+                'display': 'flex !important',
+                'visibility': 'visible !important',
+                'opacity': '1 !important'
+            });
+            $('.rtb-time-inputs').show();
+            $('.rtb-time-inputs').addClass('rtb-time-inputs-visible');
         });
     }
-    
+
     function saveSettings() {
         const $form = $('#rtb-settings-form');
         const $submitBtn = $form.find('button[type="submit"]');
-        
+
         // Show loading state
         $submitBtn.prop('disabled', true);
         $submitBtn.html('<span class="rtb-spinner"></span>Saving...');
-        
+
         const formData = {
             action: 'rtb_save_settings',
             nonce: rtb_ajax.nonce
         };
-        
-        // Collect business hours - ИСПРАВЛЕННАЯ ЛОГИКА
+
+        // Collect business hours
         const businessHours = {};
         const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
         
+        console.log('Collecting business hours data...');
+        
         days.forEach(function(day) {
-            const $dayContainer = $(`input[name="business_hours[${day}][isOpen]"]`).closest('.rtb-day-hours');
-            const isOpen = $(`input[name="business_hours[${day}][isOpen]"]`).is(':checked');
-            const openTime = $(`input[name="business_hours[${day}][openTime]"]`).val();
-            const closeTime = $(`input[name="business_hours[${day}][closeTime]"]`).val();
+            const $openTime = $(`input[name="business_hours[${day}][openTime]"]`);
+            const $closeTime = $(`input[name="business_hours[${day}][closeTime]"]`);
             
+            const openTime = $openTime.val() || '09:00';
+            const closeTime = $closeTime.val() || '17:00';
+
             businessHours[day] = {
-                isOpen: isOpen,
-                openTime: openTime || '09:00',
-                closeTime: closeTime || '17:00'
+                isOpen: true,
+                openTime: openTime,
+                closeTime: closeTime
             };
-            
-            console.log(`${day}: isOpen=${isOpen}, openTime=${openTime}, closeTime=${closeTime}`);
+
+            console.log(`${day}: openTime=${openTime}, closeTime=${closeTime}`);
         });
-        
+
         formData.business_hours = businessHours;
-        formData.time_interval = $('select[name="time_interval"]').val();
-        formData.time_format = $('select[name="time_format"]').val();
+        formData.time_interval = $('select[name="time_interval"]').val() || '30';
         formData.confirmation_enabled = $('input[name="confirmation_enabled"]').is(':checked') ? '1' : '0';
-        
+
         // Collect notification emails
         const emails = [];
         $('input[name="notification_emails[]"]').each(function() {
@@ -98,10 +89,11 @@ jQuery(document).ready(function($) {
                 emails.push(email);
             }
         });
+        
         formData.notification_emails = emails;
-        
+
         console.log('Saving form data:', formData);
-        
+
         $.ajax({
             url: rtb_ajax.ajax_url,
             type: 'POST',
@@ -124,7 +116,7 @@ jQuery(document).ready(function($) {
             }
         });
     }
-    
+
     function initLocationManagement() {
         // Save location
         $(document).on('click', '.rtb-save-location', function() {
@@ -133,15 +125,15 @@ jQuery(document).ready(function($) {
             const name = $item.find('.rtb-location-name').val();
             const imageUrl = $item.find('.rtb-location-image-url').val();
             const enabled = $item.find('.rtb-location-enabled').is(':checked');
-            
+
             if (!name.trim()) {
                 alert('Location name is required.');
                 return;
             }
-            
+
             const $btn = $(this);
             $btn.prop('disabled', true).html('<span class="rtb-spinner"></span>Saving...');
-            
+
             $.ajax({
                 url: rtb_ajax.ajax_url,
                 type: 'POST',
@@ -172,19 +164,19 @@ jQuery(document).ready(function($) {
                 }
             });
         });
-        
+
         // Delete location
         $(document).on('click', '.rtb-delete-location', function() {
             if (!confirm('Are you sure you want to delete this location?')) {
                 return;
             }
-            
+
             const $item = $(this).closest('.rtb-location-item');
             const locationId = $item.data('location-id');
             const $btn = $(this);
-            
+
             $btn.prop('disabled', true).html('<span class="rtb-spinner"></span>Deleting...');
-            
+
             $.ajax({
                 url: rtb_ajax.ajax_url,
                 type: 'POST',
@@ -210,7 +202,7 @@ jQuery(document).ready(function($) {
                 }
             });
         });
-        
+
         // Add new location
         $('#rtb-add-location').on('click', function() {
             const newLocationId = 'location-' + Date.now();
@@ -233,11 +225,11 @@ jQuery(document).ready(function($) {
                     </div>
                 </div>
             `;
-            
+
             $('#rtb-locations-list').append(locationHTML);
         });
     }
-    
+
     function initEmailManagement() {
         // Add email
         $('#rtb-add-email').on('click', function() {
@@ -247,33 +239,33 @@ jQuery(document).ready(function($) {
                     <button type="button" class="button rtb-remove-email">Remove</button>
                 </div>
             `;
-            
+
             $('#rtb-notification-emails').append(emailHTML);
         });
-        
+
         // Remove email
         $(document).on('click', '.rtb-remove-email', function() {
             $(this).closest('.rtb-email-input').remove();
         });
     }
-    
+
     function showMessage(message, type) {
         const messageClass = type === 'success' ? 'rtb-success' : 'rtb-error';
         const $message = $(`<div class="rtb-message ${messageClass}">${message}</div>`);
-        
+
         // Remove existing messages
         $('.rtb-message').remove();
-        
+
         // Add new message
         $('.wrap h1').after($message);
-        
+
         // Auto-hide after 5 seconds
         setTimeout(function() {
             $message.fadeOut(300, function() {
                 $(this).remove();
             });
         }, 5000);
-        
+
         // Scroll to top
         $('html, body').animate({ scrollTop: 0 }, 300);
     }

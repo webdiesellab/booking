@@ -101,17 +101,32 @@
     flex: 1;
 }
 
-.rtb-checkbox {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-}
+
 
 .rtb-time-inputs {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.rtb-time-inputs-visible {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+/* Принудительное отображение для всех полей времени */
+.rtb-day-controls .rtb-time-inputs,
+.rtb-day-hours .rtb-time-inputs {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 .rtb-time-inputs input[type="time"] {
@@ -243,23 +258,23 @@
     .rtb-admin-stats {
         grid-template-columns: 1fr;
     }
-    
+
     .rtb-day-hours {
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
     }
-    
+
     .rtb-day-controls {
         width: 100%;
         flex-wrap: wrap;
     }
-    
+
     .rtb-location-item {
         flex-direction: column;
         text-align: center;
     }
-    
+
     .rtb-location-actions {
         flex-direction: row;
         justify-content: center;
