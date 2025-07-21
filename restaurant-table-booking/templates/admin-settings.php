@@ -33,17 +33,14 @@
                         </div>
                         
                         <div class="rtb-day-controls">
-                            <label class="rtb-checkbox">
-                                <input type="checkbox" name="business_hours[<?php echo $day; ?>][isOpen]" value="1" <?php checked($day_hours['isOpen'], true); ?>>
-                                <?php _e('Open', 'restaurant-table-booking'); ?>
-                            </label>
-                            
-                            <div class="rtb-time-inputs">
+                            <div class="rtb-time-inputs rtb-time-inputs-visible" style="display: flex !important; visibility: visible !important; opacity: 1 !important;">
                                 <label><?php _e('From:', 'restaurant-table-booking'); ?></label>
                                 <input type="time" name="business_hours[<?php echo $day; ?>][openTime]" value="<?php echo esc_attr($day_hours['openTime']); ?>">
                                 
                                 <label><?php _e('To:', 'restaurant-table-booking'); ?></label>
                                 <input type="time" name="business_hours[<?php echo $day; ?>][closeTime]" value="<?php echo esc_attr($day_hours['closeTime']); ?>">
+                                
+                                <input type="hidden" name="business_hours[<?php echo $day; ?>][isOpen]" value="1">
                             </div>
                         </div>
                     </div>
