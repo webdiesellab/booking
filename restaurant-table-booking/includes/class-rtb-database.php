@@ -56,50 +56,58 @@ class RTB_Database {
     public static function insert_default_data() {
         global $wpdb;
         
-        // Insert default locations
-        $locations_table = $wpdb->prefix . 'rtb_locations';
-        $default_locations = array(
-            array('main-dining', 'Main Dining Room', 'https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=800', 1, 1),
-            array('private-dining', 'Private Dining', 'https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=800', 1, 2),
-            array('outdoor-terrace', 'Outdoor Terrace', 'https://images.pexels.com/photos/1581384/pexels-photo-1581384.jpeg?auto=compress&cs=tinysrgb&w=800', 1, 3),
-            array('wine-cellar', 'Wine Cellar', 'https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=800', 1, 4)
-        );
-        
-        foreach ($default_locations as $location) {
-            $wpdb->replace($locations_table, array(
-                'id' => $location[0],
-                'name' => $location[1],
-                'image_url' => $location[2],
-                'enabled' => $location[3],
-                'sort_order' => $location[4]
-            ));
-        }
-        
-        // Insert default settings
+        // Check if this is first installation by checking if any data exists
         $settings_table = $wpdb->prefix . 'rtb_settings';
-        $default_settings = array(
-            'business_hours' => json_encode(array(
-                'monday' => array('isOpen' => true, 'openTime' => '11:00', 'closeTime' => '22:00'),
-                'tuesday' => array('isOpen' => true, 'openTime' => '11:00', 'closeTime' => '22:00'),
-                'wednesday' => array('isOpen' => true, 'openTime' => '11:00', 'closeTime' => '22:00'),
-                'thursday' => array('isOpen' => true, 'openTime' => '11:00', 'closeTime' => '22:00'),
-                'friday' => array('isOpen' => true, 'openTime' => '11:00', 'closeTime' => '23:00'),
-                'saturday' => array('isOpen' => true, 'openTime' => '10:00', 'closeTime' => '23:00'),
-                'sunday' => array('isOpen' => true, 'openTime' => '10:00', 'closeTime' => '21:00')
-            )),
-            'time_interval' => '30',
-            'time_format' => '24',
-            'notification_emails' => json_encode(array(get_option('admin_email'))),
-            'confirmation_enabled' => '1',
-            'max_guests' => '15',
-            'advance_booking_days' => '30'
-        );
+        $existing_settings = $wpdb->get_var("SELECT COUNT(*) FROM $settings_table");
         
-        foreach ($default_settings as $key => $value) {
-            $wpdb->replace($settings_table, array(
-                'setting_key' => $key,
-                'setting_value' => $value
-            ));
+        $locations_table = $wpdb->prefix . 'rtb_locations';
+        $existing_locations = $wpdb->get_var("SELECT COUNT(*) FROM $locations_table");
+        
+        // Only insert default data if this is a fresh installation
+        if ($existing_settings == 0 && $existing_locations == 0) {
+            // Insert default locations
+            $default_locations = array(
+                array('main-dining', 'Main Dining Room', 'https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=800', 1, 1),
+                array('private-dining', 'Private Dining', 'https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=800', 1, 2),
+                array('outdoor-terrace', 'Outdoor Terrace', 'https://images.pexels.com/photos/1581384/pexels-photo-1581384.jpeg?auto=compress&cs=tinysrgb&w=800', 1, 3),
+                array('wine-cellar', 'Wine Cellar', 'https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=800', 1, 4)
+            );
+            
+            foreach ($default_locations as $location) {
+                $wpdb->insert($locations_table, array(
+                    'id' => $location[0],
+                    'name' => $location[1],
+                    'image_url' => $location[2],
+                    'enabled' => $location[3],
+                    'sort_order' => $location[4]
+                ));
+            }
+        
+        // Insert default settings only on fresh installation
+            $default_settings = array(
+                'business_hours' => json_encode(array(
+                    'monday' => array('isOpen' => true, 'openTime' => '11:00', 'closeTime' => '22:00'),
+                    'tuesday' => array('isOpen' => true, 'openTime' => '11:00', 'closeTime' => '22:00'),
+                    'wednesday' => array('isOpen' => true, 'openTime' => '11:00', 'closeTime' => '22:00'),
+                    'thursday' => array('isOpen' => true, 'openTime' => '11:00', 'closeTime' => '22:00'),
+                    'friday' => array('isOpen' => true, 'openTime' => '11:00', 'closeTime' => '23:00'),
+                    'saturday' => array('isOpen' => true, 'openTime' => '10:00', 'closeTime' => '23:00'),
+                    'sunday' => array('isOpen' => true, 'openTime' => '10:00', 'closeTime' => '21:00')
+                )),
+                'time_interval' => '30',
+                'time_format' => '24',
+                'notification_emails' => json_encode(array(get_option('admin_email'))),
+                'confirmation_enabled' => '1',
+                'max_guests' => '15',
+                'advance_booking_days' => '30'
+            );
+            
+            foreach ($default_settings as $key => $value) {
+                $wpdb->insert($settings_table, array(
+                    'setting_key' => $key,
+                    'setting_value' => $value
+                ));
+            }
         }
     }
     

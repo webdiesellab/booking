@@ -53,8 +53,10 @@ class RTB_Admin {
 
     public function enqueue_admin_scripts($hook) {
         if (strpos($hook, 'restaurant-bookings') !== false) {
-            wp_enqueue_style('rtb-admin-css', RTB_PLUGIN_URL . 'assets/admin.css', array(), RTB_VERSION);
-            wp_enqueue_script('rtb-admin-js', RTB_PLUGIN_URL . 'assets/admin.js', array('jquery'), RTB_VERSION, true);
+            // Добавляем текущее время к версии для принудительного обновления кеша
+            $version = RTB_VERSION . '.' . time();
+            wp_enqueue_style('rtb-admin-css', RTB_PLUGIN_URL . 'assets/admin.css', array(), $version);
+            wp_enqueue_script('rtb-admin-js', RTB_PLUGIN_URL . 'assets/admin.js', array('jquery'), $version, true);
             wp_localize_script('rtb-admin-js', 'rtb_ajax', array(
                 'ajax_url' => admin_url('admin-ajax.php'),
                 'nonce' => wp_create_nonce('rtb_admin_nonce')

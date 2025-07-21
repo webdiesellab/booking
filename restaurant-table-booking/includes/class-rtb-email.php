@@ -21,7 +21,7 @@ class RTB_Email {
         
         // Format date and time
         $formatted_date = date('l, F j, Y', strtotime($booking_data['date']));
-        $formatted_time = date('g:i A', strtotime($booking_data['time']));
+        $formatted_time = date('H:i', strtotime($booking_data['time']));
         
         // Email to customer
         $customer_subject = __('Booking Confirmation - Your Table is Reserved!', 'restaurant-table-booking');
@@ -55,7 +55,26 @@ class RTB_Email {
     
     private function get_customer_email_template($booking_data, $location_name, $formatted_date, $formatted_time) {
         $site_name = get_bloginfo('name');
+        $admin_email = RTB_Database::get_setting('admin_email', get_option('admin_email'));
         
+        // Plain text details for cancellation email
+        $booking_details_plain = "Name: {$booking_data['full_name']}\n";
+        $booking_details_plain .= "Date: {$formatted_date}\n";
+        $booking_details_plain .= "Time: {$formatted_time}\n";
+        $booking_details_plain .= "Guests: {$booking_data['guests']}\n";
+        $booking_details_plain .= "Location: {$location_name}\n";
+        $booking_details_plain .= "Phone: {$booking_data['phone']}";
+        
+        $cancel_subject = "Booking Cancellation Request";
+        $cancel_body = "Dear {$site_name} Team,\n\n";
+        $cancel_body .= "I would like to cancel my booking with the following details:\n\n";
+        $cancel_body .= $booking_details_plain;
+        $cancel_body .= "\n\nBest regards,\n{$booking_data['full_name']}";
+        
+        $cancel_link = "mailto:{$admin_email}?" . 
+                      "subject=" . rawurlencode($cancel_subject) . 
+                      "&body=" . rawurlencode($cancel_body);
+
         return "
         <html>
         <head>
@@ -69,6 +88,26 @@ class RTB_Email {
                 .label { font-weight: bold; color: #666; }
                 .value { color: #333; }
                 .footer { text-align: center; margin-top: 30px; color: #666; font-size: 14px; }
+                .cancel-btn { 
+                    display: inline-block; 
+                    background: #ef4444; 
+                    color: white; 
+                    padding: 12px 24px; 
+                    text-decoration: none; 
+                    border-radius: 6px; 
+                    font-weight: bold; 
+                    margin: 20px 0; 
+                    text-align: center;
+                }
+                .cancel-btn:hover { 
+                    background: #dc2626; 
+                }
+                .cancel-note {
+                    font-size: 13px;
+                    color: #666;
+                    text-align: center;
+                    margin-top: 5px;
+                }
             </style>
         </head>
         <body>
@@ -105,6 +144,11 @@ class RTB_Email {
                         </div>
                     </div>
                     
+                    <div style='text-align: center;'>
+                        <a href='{$cancel_link}' class='cancel-btn'>Cancel Booking</a>
+                        <p class='cancel-note'>Clicking this button will open your email client with a pre-filled cancellation request</p>
+                    </div>
+                    
                     <h4>Important Information:</h4>
                     <ul>
                         <li>Please arrive 15 minutes before your reservation time</li>
@@ -127,7 +171,7 @@ class RTB_Email {
     private function get_admin_email_template($booking_data, $location_name, $formatted_date, $formatted_time) {
         $site_name = get_bloginfo('name');
         
-        return "
+        $admin_message = "
         <html>
         <head>
             <style>
@@ -170,7 +214,7 @@ class RTB_Email {
                         <div class='detail-row'>
                             <span class='label'>Location:</span> {$location_name}
                         </div>";
-        
+
         if (!empty($booking_data['special_requests'])) {
             $admin_message .= "
                         <div class='detail-row'>
