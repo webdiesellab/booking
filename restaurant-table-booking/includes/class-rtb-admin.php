@@ -104,12 +104,43 @@ class RTB_Admin {
         $time_interval = sanitize_text_field($_POST['time_interval'] ?? '30');
         $notification_emails = array_map('sanitize_email', $_POST['notification_emails'] ?? array());
         $confirmation_enabled = isset($_POST['confirmation_enabled']) ? '1' : '0';
+        $locations_data = $_POST['locations'] ?? array();
 
         RTB_Database::update_setting('business_hours', json_encode($business_hours));
         RTB_Database::update_setting('time_interval', $time_interval);
         RTB_Database::update_setting('notification_emails', json_encode($notification_emails));
         RTB_Database::update_setting('confirmation_enabled', $confirmation_enabled);
 
+        // Save all locations
+        if (!empty($locations_data)) {
+            global $wpdb;
+            $locations_table = $wpdb->prefix . 'rtb_locations';
+            
+            foreach ($locations_data as $location_id => $location_data) {
+                $name = sanitize_text_field($location_data['name'] ?? '');
+                $image_url = esc_url_raw($location_data['image_url'] ?? '');
+                $icon_svg = wp_kses($location_data['icon_svg'] ?? '', array(
+                    'svg' => array('width' => array(), 'height' => array(), 'viewBox' => array(), 'fill' => array(), 'stroke' => array(), 'stroke-width' => array()),
+                    'path' => array('d' => array(), 'fill' => array(), 'stroke' => array()),
+                    'circle' => array('cx' => array(), 'cy' => array(), 'r' => array(), 'fill' => array(), 'stroke' => array()),
+                    'rect' => array('x' => array(), 'y' => array(), 'width' => array(), 'height' => array(), 'fill' => array(), 'stroke' => array()),
+                    'line' => array('x1' => array(), 'y1' => array(), 'x2' => array(), 'y2' => array(), 'stroke' => array()),
+                    'polyline' => array('points' => array(), 'fill' => array(), 'stroke' => array()),
+                    'polygon' => array('points' => array(), 'fill' => array(), 'stroke' => array())
+                ));
+                $enabled = isset($location_data['enabled']) ? 1 : 0;
+                
+                if (!empty($name)) {
+                    $wpdb->replace($locations_table, array(
+                        'id' => $location_id,
+                        'name' => $name,
+                        'image_url' => $image_url,
+                        'icon_svg' => $icon_svg,
+                        'enabled' => $enabled
+                    ));
+                }
+            }
+        }
         wp_send_json_success(__('Settings saved successfully!', 'restaurant-table-booking'));
     }
 
@@ -126,12 +157,22 @@ class RTB_Admin {
         $location_id = sanitize_text_field($_POST['location_id']);
         $name = sanitize_text_field($_POST['name']);
         $image_url = esc_url_raw($_POST['image_url']);
+        $icon_svg = wp_kses($_POST['icon_svg'] ?? '', array(
+            'svg' => array('width' => array(), 'height' => array(), 'viewBox' => array(), 'fill' => array(), 'stroke' => array(), 'stroke-width' => array()),
+            'path' => array('d' => array(), 'fill' => array(), 'stroke' => array()),
+            'circle' => array('cx' => array(), 'cy' => array(), 'r' => array(), 'fill' => array(), 'stroke' => array()),
+            'rect' => array('x' => array(), 'y' => array(), 'width' => array(), 'height' => array(), 'fill' => array(), 'stroke' => array()),
+            'line' => array('x1' => array(), 'y1' => array(), 'x2' => array(), 'y2' => array(), 'stroke' => array()),
+            'polyline' => array('points' => array(), 'fill' => array(), 'stroke' => array()),
+            'polygon' => array('points' => array(), 'fill' => array(), 'stroke' => array())
+        ));
         $enabled = isset($_POST['enabled']) ? 1 : 0;
 
         $result = $wpdb->replace($locations_table, array(
             'id' => $location_id,
             'name' => $name,
             'image_url' => $image_url,
+            'icon_svg' => $icon_svg,
             'enabled' => $enabled
         ));
 

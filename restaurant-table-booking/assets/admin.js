@@ -30,6 +30,11 @@ jQuery(document).ready(function($) {
             saveSettings();
         });
 
+        // Update hidden inputs when location fields change
+        $(document).on('input change', '.rtb-location-name, .rtb-location-icon-svg, .rtb-location-image-url, .rtb-location-enabled', function() {
+            updateLocationHiddenInputs();
+        });
+
         // Принудительно показываем все поля времени
         $(document).ready(function() {
             $('.rtb-time-inputs').css({
@@ -92,6 +97,27 @@ jQuery(document).ready(function($) {
         
         formData.notification_emails = emails;
 
+        // Collect locations data
+        const locationsData = {};
+        $('.rtb-location-item').each(function() {
+            const $item = $(this);
+            const locationId = $item.data('location-id');
+            const name = $item.find('.rtb-location-name').val();
+            const iconSvg = $item.find('.rtb-location-icon-svg').val();
+            const imageUrl = $item.find('.rtb-location-image-url').val();
+            const enabled = $item.find('.rtb-location-enabled').is(':checked');
+            
+            if (name && name.trim()) {
+                locationsData[locationId] = {
+                    name: name,
+                    icon_svg: iconSvg,
+                    image_url: imageUrl,
+                    enabled: enabled
+                };
+            }
+        });
+        
+        formData.locations = locationsData;
         console.log('Saving form data:', formData);
 
         $.ajax({
@@ -213,11 +239,16 @@ jQuery(document).ready(function($) {
                     </div>
                     <div class="rtb-location-details">
                         <input type="text" class="rtb-location-name" value="" placeholder="Location Name">
+                        <input type="text" class="rtb-location-icon-svg" value="" placeholder="SVG иконка (например: &lt;svg&gt;...&lt;/svg&gt;)">
                         <input type="url" class="rtb-location-image-url" value="" placeholder="Image URL">
                         <label class="rtb-checkbox">
                             <input type="checkbox" class="rtb-location-enabled" checked>
                             Enabled
                         </label>
+                        <input type="hidden" name="locations[${newLocationId}][name]" value="">
+                        <input type="hidden" name="locations[${newLocationId}][icon_svg]" value="">
+                        <input type="hidden" name="locations[${newLocationId}][image_url]" value="">
+                        <input type="hidden" name="locations[${newLocationId}][enabled]" value="1">
                     </div>
                     <div class="rtb-location-actions">
                         <button type="button" class="button rtb-save-location">Save</button>
@@ -268,5 +299,18 @@ jQuery(document).ready(function($) {
 
         // Scroll to top
         $('html, body').animate({ scrollTop: 0 }, 300);
+    }
+
+    function updateLocationHiddenInputs() {
+        $('.rtb-location-item').each(function() {
+            const $item = $(this);
+            const locationId = $item.data('location-id');
+            
+            // Update hidden inputs with current values
+            $item.find(`input[name="locations[${locationId}][name]"]`).val($item.find('.rtb-location-name').val());
+            $item.find(`input[name="locations[${locationId}][icon_svg]"]`).val($item.find('.rtb-location-icon-svg').val());
+            $item.find(`input[name="locations[${locationId}][image_url]"]`).val($item.find('.rtb-location-image-url').val());
+            $item.find(`input[name="locations[${locationId}][enabled]"]`).val($item.find('.rtb-location-enabled').is(':checked') ? '1' : '0');
+        });
     }
 });

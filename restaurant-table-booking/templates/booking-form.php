@@ -64,7 +64,20 @@
                             <label for="location-<?php echo esc_attr($location['id']); ?>" class="rtb-location-card">
                                 <img src="<?php echo esc_url($location['image_url']); ?>" alt="<?php echo esc_attr($location['name']); ?>">
                                 <div class="rtb-location-overlay">
-                                    <h3><?php echo esc_html($location['name']); ?></h3>
+                                    <h3>
+                                        <?php echo esc_html($location['name']); ?>
+                                        <?php if (!empty($location['icon_svg'])): ?>
+                                            <span class="rtb-location-icon"><?php echo wp_kses($location['icon_svg'], array(
+                                                'svg' => array('width' => array(), 'height' => array(), 'viewBox' => array(), 'fill' => array(), 'stroke' => array(), 'stroke-width' => array()),
+                                                'path' => array('d' => array(), 'fill' => array(), 'stroke' => array()),
+                                                'circle' => array('cx' => array(), 'cy' => array(), 'r' => array(), 'fill' => array(), 'stroke' => array()),
+                                                'rect' => array('x' => array(), 'y' => array(), 'width' => array(), 'height' => array(), 'fill' => array(), 'stroke' => array()),
+                                                'line' => array('x1' => array(), 'y1' => array(), 'x2' => array(), 'y2' => array(), 'stroke' => array()),
+                                                'polyline' => array('points' => array(), 'fill' => array(), 'stroke' => array()),
+                                                'polygon' => array('points' => array(), 'fill' => array(), 'stroke' => array())
+                                            )); ?></span>
+                                        <?php endif; ?>
+                                    </h3>
                                 </div>
                                 <div class="rtb-location-check">✓</div>
                             </label>

@@ -136,6 +136,22 @@
     margin: 0;
     font-size: 1.1rem;
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.rtb-location-icon {
+    display: inline-flex;
+    align-items: center;
+    opacity: 0.9;
+}
+
+.rtb-location-icon svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+    stroke: currentColor;
 }
 
 .rtb-location-check {

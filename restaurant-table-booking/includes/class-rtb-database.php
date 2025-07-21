@@ -31,6 +31,7 @@ class RTB_Database {
             id varchar(50) NOT NULL,
             name varchar(255) NOT NULL,
             image_url text,
+            icon_svg text,
             enabled tinyint(1) DEFAULT 1,
             sort_order int(11) DEFAULT 0,
             created_at datetime DEFAULT CURRENT_TIMESTAMP,
@@ -67,10 +68,10 @@ class RTB_Database {
         if ($existing_settings == 0 && $existing_locations == 0) {
             // Insert default locations
             $default_locations = array(
-                array('main-dining', 'Main Dining Room', 'https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=800', 1, 1),
-                array('private-dining', 'Private Dining', 'https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=800', 1, 2),
-                array('outdoor-terrace', 'Outdoor Terrace', 'https://images.pexels.com/photos/1581384/pexels-photo-1581384.jpeg?auto=compress&cs=tinysrgb&w=800', 1, 3),
-                array('wine-cellar', 'Wine Cellar', 'https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=800', 1, 4)
+                array('main-dining', 'Main Dining Room', 'https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=800', '', 1, 1),
+                array('private-dining', 'Private Dining', 'https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=800', '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7v10c0 5.55 3.84 10 9 10s9-4.45 9-10V7l-10-5z"/><path d="M8 11v6"/><path d="M16 11v6"/></svg>', 1, 2),
+                array('outdoor-terrace', 'Outdoor Terrace', 'https://images.pexels.com/photos/1581384/pexels-photo-1581384.jpeg?auto=compress&cs=tinysrgb&w=800', '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18m-9-9v18"/></svg>', 1, 3),
+                array('wine-cellar', 'Wine Cellar', 'https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=800', '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>', 1, 4)
             );
             
             foreach ($default_locations as $location) {
@@ -78,8 +79,9 @@ class RTB_Database {
                     'id' => $location[0],
                     'name' => $location[1],
                     'image_url' => $location[2],
-                    'enabled' => $location[3],
-                    'sort_order' => $location[4]
+                    'icon_svg' => $location[3],
+                    'enabled' => $location[4],
+                    'sort_order' => $location[5]
                 ));
             }
         
