@@ -71,24 +71,19 @@
                             
                             <div class="rtb-location-details">
                                 <input type="text" class="rtb-location-name" value="<?php echo esc_attr($location['name']); ?>" placeholder="<?php _e('Location Name', 'restaurant-table-booking'); ?>">
-                                <div class="rtb-svg-selector">
-                                    <input type="hidden" class="rtb-location-icon-svg" value="<?php echo esc_attr($location['icon_svg'] ?? ''); ?>">
-                                    <div class="rtb-svg-preview">
-                                        <?php if (!empty($location['icon_svg'])): ?>
-                                            <img src="<?php echo esc_url($location['icon_svg']); ?>" alt="SVG Icon" style="width: 24px; height: 24px;">
-                                        <?php else: ?>
-                                            <span class="rtb-no-icon">Нет иконки</span>
-                                        <?php endif; ?>
-                                    </div>
-                                    <button type="button" class="button rtb-select-svg">Выбрать SVG иконку</button>
-                                    <button type="button" class="button rtb-remove-svg" style="<?php echo empty($location['icon_svg']) ? 'display:none;' : ''; ?>">Удалить</button>
-                                </div>
+                                <input type="url" class="rtb-location-icon-url" value="<?php echo esc_url($location['icon_svg'] ?? ''); ?>" placeholder="URL иконки (например: https://example.com/icon.svg)">
                                 <input type="url" class="rtb-location-image-url" value="<?php echo esc_url($location['image_url']); ?>" placeholder="<?php _e('Image URL', 'restaurant-table-booking'); ?>">
                                 
                                 <label class="rtb-checkbox">
                                     <input type="checkbox" class="rtb-location-enabled" <?php checked($location['enabled'], 1); ?>>
                                     <?php _e('Enabled', 'restaurant-table-booking'); ?>
                                 </label>
+                                
+                                <!-- Hidden inputs for form submission -->
+                                <input type="hidden" name="locations[<?php echo esc_attr($location['id']); ?>][name]" value="<?php echo esc_attr($location['name']); ?>">
+                                <input type="hidden" name="locations[<?php echo esc_attr($location['id']); ?>][icon_svg]" value="<?php echo esc_attr($location['icon_svg'] ?? ''); ?>">
+                                <input type="hidden" name="locations[<?php echo esc_attr($location['id']); ?>][image_url]" value="<?php echo esc_url($location['image_url']); ?>">
+                                <input type="hidden" name="locations[<?php echo esc_attr($location['id']); ?>][enabled]" value="<?php echo $location['enabled'] ? '1' : '0'; ?>">
                             </div>
                             
                             <div class="rtb-location-actions">

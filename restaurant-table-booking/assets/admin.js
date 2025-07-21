@@ -1,4 +1,3 @@
-
 jQuery(document).ready(function($) {
     'use strict';
 
@@ -7,7 +6,6 @@ jQuery(document).ready(function($) {
     initSettingsForm();
     initLocationManagement();
     initEmailManagement();
-    initMediaSelector();
 
     function initAdminTabs() {
         $('.nav-tab').on('click', function(e) {
@@ -32,16 +30,11 @@ jQuery(document).ready(function($) {
         });
 
         // Update hidden inputs when location fields change
-        $(document).on('input change', '.rtb-location-name, .rtb-location-image-url, .rtb-location-enabled', function() {
+        $(document).on('input change', '.rtb-location-name, .rtb-location-icon-url, .rtb-location-image-url, .rtb-location-enabled', function() {
             updateLocationHiddenInputs();
         });
         
-        // Update hidden inputs when SVG changes
-        $(document).on('change', '.rtb-location-icon-svg', function() {
-            updateLocationHiddenInputs();
-        });
-        
-        // Обновляем скрытые поля при загрузке страницы
+        // Update hidden inputs on page load
         updateLocationHiddenInputs();
 
         // Принудительно показываем все поля времени
@@ -73,8 +66,6 @@ jQuery(document).ready(function($) {
         const businessHours = {};
         const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
         
-        console.log('Collecting business hours data...');
-        
         days.forEach(function(day) {
             const $openTime = $(`input[name="business_hours[${day}][openTime]"]`);
             const $closeTime = $(`input[name="business_hours[${day}][closeTime]"]`);
@@ -87,8 +78,6 @@ jQuery(document).ready(function($) {
                 openTime: openTime,
                 closeTime: closeTime
             };
-
-            console.log(`${day}: openTime=${openTime}, closeTime=${closeTime}`);
         });
 
         formData.business_hours = businessHours;
@@ -106,27 +95,20 @@ jQuery(document).ready(function($) {
         
         formData.notification_emails = emails;
 
-        // Collect locations data - ИСПРАВЛЕНО
+        // Collect locations data
         const locationsData = {};
         $('.rtb-location-item').each(function() {
             const $item = $(this);
             const locationId = $item.data('location-id');
             const name = $item.find('.rtb-location-name').val();
-            const iconSvg = $item.find('.rtb-location-icon-svg').val();
+            const iconUrl = $item.find('.rtb-location-icon-url').val();
             const imageUrl = $item.find('.rtb-location-image-url').val();
             const enabled = $item.find('.rtb-location-enabled').is(':checked');
-            
-            console.log(`Location ${locationId}:`, {
-                name: name,
-                iconSvg: iconSvg,
-                imageUrl: imageUrl,
-                enabled: enabled
-            });
             
             if (name && name.trim()) {
                 locationsData[locationId] = {
                     name: name,
-                    icon_svg: iconSvg,
+                    icon_svg: iconUrl,
                     image_url: imageUrl,
                     enabled: enabled
                 };
@@ -134,14 +116,12 @@ jQuery(document).ready(function($) {
         });
         
         formData.locations = locationsData;
-        console.log('Saving form data:', formData);
 
         $.ajax({
             url: rtb_ajax.ajax_url,
             type: 'POST',
             data: formData,
             success: function(response) {
-                console.log('Save response:', response);
                 if (response.success) {
                     showMessage(response.data, 'success');
                 } else {
@@ -149,7 +129,6 @@ jQuery(document).ready(function($) {
                 }
             },
             error: function(xhr, status, error) {
-                console.error('Save error:', status, error);
                 showMessage('Network error. Please try again.', 'error');
             },
             complete: function() {
@@ -165,7 +144,7 @@ jQuery(document).ready(function($) {
             const $item = $(this).closest('.rtb-location-item');
             const locationId = $item.data('location-id');
             const name = $item.find('.rtb-location-name').val();
-            const iconSvg = $item.find('.rtb-location-icon-svg').val();
+            const iconUrl = $item.find('.rtb-location-icon-url').val();
             const imageUrl = $item.find('.rtb-location-image-url').val();
             const enabled = $item.find('.rtb-location-enabled').is(':checked');
 
@@ -185,7 +164,7 @@ jQuery(document).ready(function($) {
                     nonce: rtb_ajax.nonce,
                     location_id: locationId,
                     name: name,
-                    icon_svg: iconSvg,
+                    icon_svg: iconUrl,
                     image_url: imageUrl,
                     enabled: enabled ? '1' : '0'
                 },
@@ -259,14 +238,7 @@ jQuery(document).ready(function($) {
                     </div>
                     <div class="rtb-location-details">
                         <input type="text" class="rtb-location-name" value="" placeholder="Location Name">
-                        <div class="rtb-svg-selector">
-                            <input type="hidden" class="rtb-location-icon-svg" value="">
-                            <div class="rtb-svg-preview">
-                                <span class="rtb-no-icon">Нет иконки</span>
-                            </div>
-                            <button type="button" class="button rtb-select-svg">Выбрать SVG иконку</button>
-                            <button type="button" class="button rtb-remove-svg" style="display:none;">Удалить</button>
-                        </div>
+                        <input type="url" class="rtb-location-icon-url" value="" placeholder="URL иконки (например: https://example.com/icon.svg)">
                         <input type="url" class="rtb-location-image-url" value="" placeholder="Image URL">
                         <label class="rtb-checkbox">
                             <input type="checkbox" class="rtb-location-enabled" checked>
@@ -307,67 +279,6 @@ jQuery(document).ready(function($) {
         });
     }
 
-    function initMediaSelector() {
-        // Initialize WordPress Media Library
-        $(document).on('click', '.rtb-select-svg', function(e) {
-            e.preventDefault();
-            
-            const $button = $(this);
-            const $container = $button.closest('.rtb-svg-selector');
-            const $hiddenInput = $container.find('.rtb-location-icon-svg');
-            const $preview = $container.find('.rtb-svg-preview');
-            const $removeBtn = $container.find('.rtb-remove-svg');
-            
-            // Create media frame
-            const mediaFrame = wp.media({
-                title: 'Выберите SVG иконку',
-                button: {
-                    text: 'Выбрать'
-                },
-                multiple: false,
-                library: {
-                    type: 'image/svg+xml'
-                }
-            });
-            
-            // When an image is selected
-            mediaFrame.on('select', function() {
-                const attachment = mediaFrame.state().get('selection').first().toJSON();
-                
-                // Update hidden input
-                $hiddenInput.val(attachment.url).trigger('change');
-                
-                // Update preview
-                $preview.html('<img src="' + attachment.url + '" alt="SVG Icon" style="width: 24px; height: 24px;">');
-                
-                // Show remove button
-                $removeBtn.show();
-            });
-            
-            // Open media frame
-            mediaFrame.open();
-        });
-        
-        // Remove SVG icon
-        $(document).on('click', '.rtb-remove-svg', function(e) {
-            e.preventDefault();
-            
-            const $button = $(this);
-            const $container = $button.closest('.rtb-svg-selector');
-            const $hiddenInput = $container.find('.rtb-location-icon-svg');
-            const $preview = $container.find('.rtb-svg-preview');
-            
-            // Clear hidden input
-            $hiddenInput.val('').trigger('change');
-            
-            // Update preview
-            $preview.html('<span class="rtb-no-icon">Нет иконки</span>');
-            
-            // Hide remove button
-            $button.hide();
-        });
-    }
-
     function showMessage(message, type) {
         const messageClass = type === 'success' ? 'rtb-success' : 'rtb-error';
         const $message = $(`<div class="rtb-message ${messageClass}">${message}</div>`);
@@ -394,35 +305,11 @@ jQuery(document).ready(function($) {
             const $item = $(this);
             const locationId = $item.data('location-id');
             
-            // Найти или создать скрытые поля
-            let $nameInput = $item.find(`input[name="locations[${locationId}][name]"]`);
-            let $iconInput = $item.find(`input[name="locations[${locationId}][icon_svg]"]`);
-            let $imageInput = $item.find(`input[name="locations[${locationId}][image_url]"]`);
-            let $enabledInput = $item.find(`input[name="locations[${locationId}][enabled]"]`);
-            
-            // Создать скрытые поля если их нет
-            if ($nameInput.length === 0) {
-                $nameInput = $('<input type="hidden" name="locations[' + locationId + '][name]">');
-                $item.append($nameInput);
-            }
-            if ($iconInput.length === 0) {
-                $iconInput = $('<input type="hidden" name="locations[' + locationId + '][icon_svg]">');
-                $item.append($iconInput);
-            }
-            if ($imageInput.length === 0) {
-                $imageInput = $('<input type="hidden" name="locations[' + locationId + '][image_url]">');
-                $item.append($imageInput);
-            }
-            if ($enabledInput.length === 0) {
-                $enabledInput = $('<input type="hidden" name="locations[' + locationId + '][enabled]">');
-                $item.append($enabledInput);
-            }
-            
-            // Обновить значения
-            $nameInput.val($item.find('.rtb-location-name').val());
-            $iconInput.val($item.find('.rtb-location-icon-svg').val());
-            $imageInput.val($item.find('.rtb-location-image-url').val());
-            $enabledInput.val($item.find('.rtb-location-enabled').is(':checked') ? '1' : '0');
+            // Update hidden inputs
+            $item.find(`input[name="locations[${locationId}][name]"]`).val($item.find('.rtb-location-name').val());
+            $item.find(`input[name="locations[${locationId}][icon_svg]"]`).val($item.find('.rtb-location-icon-url').val());
+            $item.find(`input[name="locations[${locationId}][image_url]"]`).val($item.find('.rtb-location-image-url').val());
+            $item.find(`input[name="locations[${locationId}][enabled]"]`).val($item.find('.rtb-location-enabled').is(':checked') ? '1' : '0');
         });
     }
 });
